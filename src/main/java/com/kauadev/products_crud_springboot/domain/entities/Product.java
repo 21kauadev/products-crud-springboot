@@ -20,7 +20,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
     @EqualsAndHashCode.Include
-    private Long id;
+    private Integer id;
 
     private String name;
     private String description;
