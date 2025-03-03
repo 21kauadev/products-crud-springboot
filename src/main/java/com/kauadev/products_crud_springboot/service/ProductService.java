@@ -1,6 +1,7 @@
 package com.kauadev.products_crud_springboot.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,5 +15,9 @@ public class ProductService {
 
     public List<Product> findProducts() {
         return this.productRepository.findAll();
+    }
+
+    public Optional<Product> findProductById(Integer id) {
+        return this.productRepository.findById(id);
     }
 }
