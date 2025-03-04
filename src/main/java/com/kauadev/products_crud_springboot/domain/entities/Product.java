@@ -7,13 +7,14 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// getters e setters e construtor pra todos atributos
+// getters e setters, construtor pra todos atributos e construtor padrão
 @Getter
 @Setter
 @AllArgsConstructor
-// indica que é uma entity pro JPA
+@NoArgsConstructor
 @Entity
 public class Product {
 
@@ -26,4 +27,5 @@ public class Product {
     private String description;
     private Double price;
     private Integer quantity;
+
 }
