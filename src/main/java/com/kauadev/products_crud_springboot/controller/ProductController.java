@@ -12,27 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kauadev.products_crud_springboot.domain.entities.Product;
-import com.kauadev.products_crud_springboot.repository.ProductRepository;
+import com.kauadev.products_crud_springboot.service.ProductService;
 
 @RestController
 @RequestMapping("/product") // localhost://product...
 public class ProductController {
 
     @Autowired // -> injeção de dependencia.
-    private ProductRepository productRepository;
+    private ProductService productService;
+
+    // controllers dependem dos services
+    // services concentram a lógica de negócios
+    // repositories dizem respeito à manipulação do banco de dados, CRUD puro.
 
     @GetMapping("/")
     public List<Product> products() {
-        return this.productRepository.findAll();
+        return this.productService.findProducts();
     }
 
     @GetMapping("/{id}")
     public Optional<Product> product(@PathVariable("id") Integer id) {
-        return this.productRepository.findById(id);
+        return this.productService.findProductById(id);
     }
 
     @PostMapping("/create")
     public Product create(@RequestBody Product product) {
-        return this.productRepository.save(product);
+        return this.productService.createProduct(product);
     }
 }
