@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.kauadev.products_crud_springboot.domain.entities.Product;
@@ -42,6 +43,16 @@ public class ProductService {
         product.get().setQuantity(updatedProduct.getQuantity());
 
         return this.productRepository.save(product.get());
+    }
+
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        Optional<Product> product = this.productRepository.findById(id);
+
+        if (product.isPresent()) {
+            this.productRepository.delete(product.get());
+        }
+
+        return ResponseEntity.ok("Product deleted.");
     }
 
 }
