@@ -54,11 +54,11 @@ public class ProductService {
     public ResponseEntity<String> deleteProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
 
-        if (product.isPresent()) {
-            this.productRepository.delete(product.get());
-        }
+        if (!product.isPresent())
+            throw new ProductNotFoundException();
 
-        return ResponseEntity.ok("Product deleted.");
+        this.productRepository.delete(product.get());
+        return ResponseEntity.ok().body("Product deleted.");
     }
 
 }
