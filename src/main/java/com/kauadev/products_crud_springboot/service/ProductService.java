@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.kauadev.products_crud_springboot.domain.entities.Product;
-import com.kauadev.products_crud_springboot.errors.ProductNotFoundException;
+import com.kauadev.products_crud_springboot.exception.ProductNotFoundException;
 import com.kauadev.products_crud_springboot.repository.ProductRepository;
 
 @Service
@@ -22,7 +22,13 @@ public class ProductService {
     }
 
     public Optional<Product> findProductById(Integer id) {
-        return this.productRepository.findById(id);
+
+        Optional<Product> product = this.productRepository.findById(id);
+
+        if (!product.isPresent())
+            throw new ProductNotFoundException();
+
+        return product;
     }
 
     public Product createProduct(Product newProduct) {
@@ -33,7 +39,7 @@ public class ProductService {
         Optional<Product> product = this.productRepository.findById(id);
 
         if (!product.isPresent())
-            throw new ProductNotFoundException("Product not found.");
+            throw new ProductNotFoundException();
 
         System.out.println("get name: " + updatedProduct);
 
